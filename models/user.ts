@@ -28,3 +28,5 @@ export interface User {
 export interface UserDocument extends User, Document {}
 
 export const userModel = mongoose.model("User", userSchema, "Users");
+export const chatUserModel = mongoose.model("ChatUser", userSchema, "ChatUsers");
+export const PendingUserModel = mongoose.model("PendingUser", userSchema, "PendingUsers");

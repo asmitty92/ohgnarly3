@@ -1,12 +1,22 @@
-import {Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import {UserRepository} from '../repositories/userRepository';
+import {Controller} from "./controller";
 
-export class UserController {
+export class UserController implements Controller {
     private readonly userRepository: UserRepository;
 
     constructor(userRepository?: UserRepository) {
         this.userRepository = userRepository || new UserRepository();
     }
+
+    registerRoutes = (router: Router) => {
+        router.post('/check-username', this.checkUsername);
+        router.post('/check-email', this.checkEmailAddress);
+        router.post('/create-user', this.createUser);
+        router.get('/users', this.getUsers);
+        router.get('/new-movie', this.createUser);
+        router.get('/user/:userId', this.getUser);
+    };
 
     checkUsername = async (req: Request, res: Response) => {
         try {

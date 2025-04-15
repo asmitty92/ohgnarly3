@@ -3,6 +3,8 @@
  */
 import {Document, Schema} from 'mongoose';
 
+
+
 export const categorySchema = new Schema({
     categoryDesc: String,
     createdAt: {type: Date, default: Date.now}
@@ -13,5 +15,4 @@ interface Category {
     createdAt: Date;
 }
 
-export interface CategoryDocument extends Category, Document {
-}
+export interface CategoryDocument extends Category, Document {}

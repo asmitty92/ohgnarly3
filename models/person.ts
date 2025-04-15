@@ -1,9 +1,9 @@
 /**
  * Created by asmitty on 9/18/19.
  */
-import {Schema, Document} from 'mongoose';
+import mongoose, {Schema, Document} from 'mongoose';
 
-export const personSchema = new Schema<PersonDocument>({
+const personSchema = new Schema<PersonDocument>({
     name: String,
     age: Number,
     dob: Date,
@@ -17,3 +17,5 @@ export interface Person {
 }
 
 export interface PersonDocument extends Person, Document {}
+
+export const PersonModel = mongoose.model("Person", personSchema, "People");

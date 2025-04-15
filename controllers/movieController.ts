@@ -1,14 +1,26 @@
-import {Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import {getFormats} from '../services/format';
 import {MovieRepository} from '../repositories/movieRepository';
+import {Controller} from "./controller";
 
-
-export class MovieController {
+export class MovieController implements Controller {
     private readonly movieRepository: MovieRepository;
 
     constructor(movieRepository?: MovieRepository) {
         this.movieRepository = movieRepository || new MovieRepository();
     }
+    
+    registerRoutes = (router: Router) => {
+        router.post('/movie', this.createMovie);
+        router.get('/movie-details/:onlineId', this.getMovieDetails);
+        router.get('/movies/:userId', this.getMovies);
+        router.get('/movie-search/:title/:page', this.searchMovies);
+        router.get('/movie-formats', this.getFormats);
+        router.get('/movie/:userId/:imdbid', this.getMovie);
+        router.put('/movie', this.updateMovie);
+        router.delete('/movie/:userId/:imdbid', this.deleteMovie);
+        router.get('/update-movies', this.updateMovies);
+    };
 
     getMovies = async (req: Request, res: Response) => {
         try {
@@ -20,7 +32,7 @@ export class MovieController {
         }
     };
 
-    updateMovies = async(req: Request, res: Response) => {
+    updateMovies = async(_: Request, res: Response) => {
         const userId = '5d9ce112b3608e16726bc0ea';
         const movies = await this.movieRepository.getMoviesForUser(userId);
 
@@ -83,7 +95,7 @@ export class MovieController {
         }
     };
 
-    getFormats = async (req: Request, res: Response) => {
+    getFormats = async (_: Request, res: Response) => {
         const results = [];
 
         const formats = getFormats();

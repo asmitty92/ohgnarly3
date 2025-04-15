@@ -7,10 +7,10 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose'
 import Debug from 'debug'
-import {Server, Socket} from 'socket.io'
 import cors from 'cors'
+import {Server, Socket} from 'socket.io'
 import dotenv from 'dotenv'
-import {getConnectionStrings, getAllowedOrigins, allowedOrigins, authorizationService} from './services'
+import {getConnectionStrings, authorizationService, getAllowedOrigins} from './services'
 import {Routes} from './routes';
 import {MessageController} from "./controllers/messageController";
 
@@ -39,9 +39,10 @@ const appServer = app.listen(port, onListening);
 /**
  * Create socket io object and create socket dependencies.
  */
+const allowedOrigins = getAllowedOrigins();
 const io = new Server(appServer, {
     cors: {
-        origin: getAllowedOrigins(),
+        origin: allowedOrigins,
         methods: ['GET', 'POST'],
         credentials: false
     },
@@ -49,12 +50,15 @@ const io = new Server(appServer, {
     allowEIO3: true
 });
 
+
 app.on('error', onError);
 io.on('connection', onSocketConnect);
 
 //const authUrlRegExp = new RegExp(`\/((?!${settings.authExclusionUrls.join('|')})np.)*`);
-
-app.use(cors(allowedOrigins));
+const corsOptions = {
+    origin: allowedOrigins,
+}
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

@@ -1,15 +1,21 @@
 import {Settings} from '../services/settings';
-import {Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import bcrypt from 'bcryptjs';
 import {ResponseBuilder} from '../services/response';
 import {UserRepository} from '../repositories/userRepository';
+import {Controller} from "./controller";
 
 
-export class LoginController {
+export class LoginController implements Controller {
     private readonly userRepository: UserRepository;
 
     constructor(userRepository?: UserRepository) {
         this.userRepository = userRepository || new UserRepository();
+    }
+
+    registerRoutes = (router: Router) => {
+        router.post('/login', this.login);
+        router.post('/chat-login', this.chatLogin);
     }
 
     login = async (req: Request, res: Response) => {

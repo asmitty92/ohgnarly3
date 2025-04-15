@@ -1,7 +1,4 @@
-import {personSchema, PersonDocument, Person} from '../models/person';
-import mongoose from 'mongoose';
-
-const PersonModel = mongoose.model("Person", personSchema, "People");
+import {PersonModel, PersonDocument, Person} from '../models/person';
 
 export class PersonRepository {
     add = async (person: Person) => {

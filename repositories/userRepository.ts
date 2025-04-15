@@ -1,9 +1,4 @@
-import mongoose from 'mongoose';
-import {User, UserDocument, userModel, userSchema} from '../models/user';
-
-
-const chatUserModel = mongoose.model("ChatUser", userSchema, "ChatUsers");
-export const PendingUserModel = mongoose.model("PendingUser", userSchema, "PendingUsers");
+import {User, UserDocument, userModel, chatUserModel, PendingUserModel} from '../models/user';
 
 export class UserRepository {
     getUserByUserName = async (userName: string) => {

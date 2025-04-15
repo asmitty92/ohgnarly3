@@ -1,17 +1,25 @@
-import {Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import {Message, MessageDocument} from '../models/message';
 import {MessageRepository} from '../repositories/messageRepository';
 import {stringifyParam, sortMessages} from '../services/utilities';
+import { Server } from 'socket.io';
+import {Controller} from "./controller";
 
 
-export class MessageController {
-    io: any;
+export class MessageController implements Controller {
+    io: Server;
     private readonly messageRepository: MessageRepository;
 
-    constructor(io: any, messageRepository?: MessageRepository) {
+    constructor(io: Server, messageRepository?: MessageRepository) {
         this.io = io;
         this.messageRepository = messageRepository || new MessageRepository();
     }
+
+    registerRoutes = (router: Router) => {
+        router.post('/message', this.createMessage);
+        router.post('/messages', this.searchMessages);
+        router.get('/messages', this.getMessages);
+    };
 
     getMessages = async (req: Request, res: Response) => {
         try {

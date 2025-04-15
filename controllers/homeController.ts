@@ -1,13 +1,19 @@
 import path from 'path';
-import {Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import {CategoryRepository} from '../repositories/categoryRepository';
+import {Controller} from "./controller";
 
-export class HomeController {
+export class HomeController implements Controller {
     categoryRepository: CategoryRepository;
 
     constructor(categoryRepository?: CategoryRepository) {
         this.categoryRepository = categoryRepository || new CategoryRepository();
     }
+
+    registerRoutes = (router: Router) => {
+        router.post('/ping', this.ping)
+        router.get('/categories', this.getCategories);
+    };
 
     showHomePage = async (req: Request, res: Response) => {
         return res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -23,6 +29,6 @@ export class HomeController {
             return res.send(categories);
         } catch (err) {
             return res.send(err);
-        };
+        }
     };
 }
