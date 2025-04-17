@@ -19,7 +19,7 @@ export class MovieRepository {
     };
 
     delete = async (userId: string, imdbid: string) => {
-        return await MovieModel.deleteOne({userId: userId, imdbid: imdbid}).exec() as MovieDocument;
+        return await MovieModel.deleteOne({userId: userId, imdbid: imdbid}).exec() as unknown as MovieDocument;
     }
 
     update = async (userId: string, imdbid: string, movie: Movie) => {

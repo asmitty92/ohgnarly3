@@ -23,7 +23,7 @@ export class PersonController implements Controller {
         const people = req.body.records;
         const ids = [];
         for (const item of people) {
-            const document = await this.personRepository.add({name: item.name, age: item.age, dob: item.dob});
+            const document = await this.personRepository.add({name: item.name, age: item.age, dob: item.dob, createdAt: undefined});
             ids.push(document._id)
         }
         res.send({success: true, ids: ids});

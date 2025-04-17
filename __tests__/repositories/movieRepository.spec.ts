@@ -10,7 +10,7 @@ describe('movieRepository', () => {
 
     beforeEach(async () => {
         movieRepository = new MovieRepository();
-        await mongoose.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true});
+        await mongoose.connect(process.env.CONNECTION_STRING);
     });
 
     describe('getMoviesForUser', () => {
