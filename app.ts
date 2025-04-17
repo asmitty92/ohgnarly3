@@ -24,7 +24,7 @@ const debug = Debug('ohgnarly:server');
  */
 mongoose.Promise = global.Promise;
 const connectionString = getConnectionStrings()['ohgnarly'];
-mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(connectionString);
 
 /**
  * Create express app and set middleware components

@@ -7,13 +7,17 @@ const personSchema = new Schema<PersonDocument>({
     name: String,
     age: Number,
     dob: Date,
-    createdAt: {type: Date, default: Date.now}
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 export interface Person {
     name: string;
     age: number;
     dob: Date;
+    createdAt: Date;
 }
 
 export interface PersonDocument extends Person, Document {}

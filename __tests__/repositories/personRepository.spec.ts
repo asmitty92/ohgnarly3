@@ -11,8 +11,8 @@ describe('personRepository', () => {
 
     beforeEach(async () => {
         personRepository = new PersonRepository();
-        await mongoose.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true});
-        person = await personRepository.add({name: 'Xander', age: 6, dob: new Date(2014, 11, 22)});
+        await mongoose.connect(process.env.CONNECTION_STRING);
+        person = await personRepository.add({name: 'Xander', age: 6, dob: new Date(2014, 11, 22), createdAt: undefined});
     });
 
     it('should retrieve a person', async () => {
@@ -23,7 +23,7 @@ describe('personRepository', () => {
     });
 
     afterEach(async () => {
-        await personRepository.delete(person._id);
+        await personRepository.delete(person._id as string);
         await mongoose.disconnect();
     });
 });

@@ -12,7 +12,6 @@ export class PersonRepository {
     }
 
     delete = async (personId: string) => {
-        const person = await PersonModel.findById(personId).exec();
-        return await person.remove() as any as PersonDocument;
+        return await PersonModel.deleteOne({personId: personId}).exec() as unknown as PersonDocument;
     }
 }
