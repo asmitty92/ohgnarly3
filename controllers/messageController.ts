@@ -54,7 +54,6 @@ export class MessageController implements Controller {
                 const startDate = new Date(req.body.searchDate);
                 const endDate = new Date(req.body.searchDate);
                 endDate.setDate(endDate.getDate() + 1);
-                console.log(`Debug: ${startDate} - ${endDate}`)
                 messages = await this.messageRepository.searchByDate(startDate, endDate);
             } else {
                 messages = await this.messageRepository.searchByText(req.body.searchText);

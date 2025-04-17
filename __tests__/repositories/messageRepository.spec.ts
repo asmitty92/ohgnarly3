@@ -10,7 +10,7 @@ describe('messageRepository', () => {
 
     beforeEach(async () => {
         messageRepository = new MessageRepository();
-        await mongoose.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true});
+        await mongoose.connect(process.env.CONNECTION_STRING);
     });
 
     describe('addMessage', () => {

@@ -9,7 +9,7 @@ describe('categoryRepository', () => {
         let categoryRepository: CategoryRepository;
         beforeEach(async () => {
             categoryRepository = new CategoryRepository();
-            await mongoose.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true});
+            await mongoose.connect(process.env.CONNECTION_STRING);
         });
 
         it('should return categories', async () => {
