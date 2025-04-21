@@ -2,7 +2,7 @@
   "name": "ohgnarly",
   "version": "1.0.0",
   "description": "ohgnarly.com",
-  "main": "./bin/www",
+  "main": "dist/app.js",
   "scripts": {
     "start": "node dist/app.js --trace-warnings",
     "test": "npm-run-all -c test-create test-start test-run test-stop test-rm",

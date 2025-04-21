@@ -39,10 +39,9 @@ const appServer = app.listen(port, onListening);
 /**
  * Create socket io object and create socket dependencies.
  */
-const allowedOrigins = getAllowedOrigins();
 const io = new Server(appServer, {
     cors: {
-        origin: allowedOrigins,
+        origin: getAllowedOrigins(),
         methods: ['GET', 'POST'],
         credentials: false
     },
@@ -56,7 +55,7 @@ io.on('connection', onSocketConnect);
 
 //const authUrlRegExp = new RegExp(`\/((?!${settings.authExclusionUrls.join('|')})np.)*`);
 const corsOptions = {
-    origin: allowedOrigins,
+    origin: getAllowedOrigins(),
 }
 app.use(cors(corsOptions));
 app.use(logger('dev'));
